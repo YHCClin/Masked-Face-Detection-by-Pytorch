@@ -8,6 +8,7 @@ import torch.utils.data as Data
 import Data_Loader.Dataset as data
 import math as math
 import argparse
+import numpy as np
 
 batch_size = 1
 
@@ -28,6 +29,9 @@ transform = transforms.Compose([
 module = torch.load(module_file)
 module.eval()
 
+# 颜色
+no_color = (0, 0, 255)
+color = (0, 255, 0)
 
 # 通过摄像头
 def CatchPICFromVideo(window_name, camera_idx):
@@ -39,8 +43,7 @@ def CatchPICFromVideo(window_name, camera_idx):
     # 告诉OpenCV使用人脸识别分类器
     eye_classifier = cv2.CascadeClassifier("./opencv/haarcascade_eye.xml")
     # 识别出人脸后要画的边框的颜色，RGB格式, color是一个不可增删的数组
-    no_color = (0, 0, 255)
-    color = (0, 255, 0)
+
     num = 0
     while cap.isOpened():
         ok, frame = cap.read()  # 读取一帧数据
@@ -116,19 +119,82 @@ def CatchPICFromVideo(window_name, camera_idx):
     cap.release()
     cv2.destroyAllWindows()
 
+def CatchFace(frame):
+    grey = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)  # 将当前桢图像转换成灰度图像
+    eye_classifier = cv2.CascadeClassifier("./opencv/haarcascade_eye.xml")
+    # 人脸检测，1.2和3分别为图片缩放比例和需要检测的有效点数
+    eyeRects = eye_classifier.detectMultiScale(grey, scaleFactor=1.2, minNeighbors=3)
+    if len(eyeRects) > 0:  # 检测到了人眼
+        eye_tags = []
+        for eyeRect in eyeRects:
+            x, y, w, h = eyeRect
+            eye_tag = [x, y, w, h]
+            eye_tags.append(eye_tag)
+        if len(eye_tags) == 2:
+            # 计算眼睛位置眼睛
+            x1 = int(eye_tags[0][0] + eye_tags[0][2] / 2)
+            x2 = int(eye_tags[1][0] + eye_tags[1][2] / 2)
+            y1 = int(eye_tags[0][1] + eye_tags[0][3] / 2)
+            y2 = int(eye_tags[1][1] + eye_tags[1][3] / 2)
+            # cv2.circle(frame, (x1, y1),2,color)
+            # cv2.circle(frame, (x2, y2), 2, color)
+            # 根据眼睛位置推测脸部位置
+            eyes_dis = int(math.sqrt(math.pow(x2 - x1, 2) + math.pow(y2 - y1, 2)))  # 眼距
+            eyes_mid = (int((x1 + x2) / 2), int((y1 + y2) / 2))  # 眼睛中点
+            face_height = int(eyes_dis * 2.8)  # 脸长=眼距 * 2.8
+            # 计算脸部矩形位置坐标
+            rec_xl = int(eyes_mid[0] - (eyes_dis / 2 * 2))
+            rec_yl = int(eyes_mid[1] - (face_height / 3))
+            rec_xr = int(eyes_mid[0] + (eyes_dis / 2 * 2))
+            rec_yr = int(eyes_mid[1] + (face_height * (2 / 3)))
+
+            x = rec_xl
+            y = rec_yl
+            w = rec_xr - rec_xl
+            h = rec_yr - rec_yl
+            image = frame[y: y + h + 10, x: x + w + 10]
+            cv2.imshow("current", image)
+            image = Image.fromarray(image)
+            image = transform(image).unsqueeze(0)
+            output = module(image)
+            # print(output)
+            _, predict = torch.max(output, 1)  # 获取预测结果
+
+            if predict == 1:
+                result = "noMask"
+            else:
+                result = "Masked"
+
+            # 绘制矩形框
+            if result == "noMask":
+                cv2.rectangle(frame, (rec_xl, rec_yl), (rec_xr, rec_yr), no_color, 1)
+                cv2.rectangle(frame, (rec_xl, rec_yl), (rec_xr, rec_yl + 15), no_color, -1)
+            else:
+
+                cv2.rectangle(frame, (rec_xl, rec_yl), (rec_xr, rec_yr), color, 1)
+                cv2.rectangle(frame, (rec_xl, rec_yl), (rec_xr, rec_yl + 15), color, -1)
+
+            # 显示结果
+            font = cv2.FONT_HERSHEY_SIMPLEX
+            cv2.putText(frame, result + ":  %.2f" % _, (x, y + 10), font, 0.4, (0, 0, 0), 1)
+    return frame
+
 
 def CatchPICByFileName(filepath):
-    image = data.default_loader(filepath)
-    image = data.transform(image).unsqueeze(0)
-    image = Variable(image)
 
-    output = module(image)
+    # 从路径读取图像文件
+    frame = cv2.imread(filepath)
+    # frame = np.array(image)
+    cv2.imshow("c", frame)
+    image = CatchFace(frame)
 
-    _, predict = torch.max(output, 1)
-    if predict == 1:
-        print("Masked")
-    else:
-        print("noMask")
+
+
+    # 显示图像
+    cv2.imshow("result", image)
+    c = cv2.waitKey(10000)
+    cv2.destroyAllWindows()
+
 
 
 # 通过图片数据集

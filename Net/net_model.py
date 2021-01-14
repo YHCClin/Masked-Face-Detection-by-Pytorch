@@ -1,6 +1,5 @@
 import torch.nn as nn
 import torch
-import numpy as np
 
 NUM_CLASSES = 2  # 二分类
 
