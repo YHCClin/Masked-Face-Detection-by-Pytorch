@@ -8,13 +8,16 @@ import torch.utils.data as Data
 import Data_Loader.Dataset as data
 import math as math
 import argparse
-import numpy as np
+from tensorboardX import SummaryWriter
+
+# 可视化
+writer = SummaryWriter("./runs/test")
 
 batch_size = 1
 
 img_root = './agedb_30_masked/images'
 test_txt = './agedb_30_masked/lables_test.txt'
-module_file = './models/mask_detection.pkl'
+module_file = './models/mask_detection_back.pkl'
 
 transform = transforms.Compose([
     transforms.Resize(300),  # 图像缩小
@@ -71,7 +74,7 @@ def CatchPICFromVideo(window_name, camera_idx):
                 # 根据眼睛位置推测脸部位置
                 eyes_dis = int(math.sqrt(math.pow(x2-x1, 2) + math.pow(y2-y1, 2)))  # 眼距
                 eyes_mid = (int((x1+x2)/2), int((y1+y2)/2))                         # 眼睛中点
-                face_height = int(eyes_dis * 2.8)                                   # 脸长=眼距 * 2.8
+                face_height = int(eyes_dis * 2.6)                                   # 脸长=眼距 * 2.8
                 # 计算脸部矩形位置坐标
                 rec_xl = int(eyes_mid[0] - (eyes_dis/2 * 2))
                 rec_yl = int(eyes_mid[1] - (face_height/3))
@@ -141,7 +144,7 @@ def CatchFace(frame):
             # 根据眼睛位置推测脸部位置
             eyes_dis = int(math.sqrt(math.pow(x2 - x1, 2) + math.pow(y2 - y1, 2)))  # 眼距
             eyes_mid = (int((x1 + x2) / 2), int((y1 + y2) / 2))  # 眼睛中点
-            face_height = int(eyes_dis * 2.8)  # 脸长=眼距 * 2.8
+            face_height = int(eyes_dis * 2.6)  # 脸长=眼距 * 2.8
             # 计算脸部矩形位置坐标
             rec_xl = int(eyes_mid[0] - (eyes_dis / 2 * 2))
             rec_yl = int(eyes_mid[1] - (face_height / 3))
@@ -170,7 +173,6 @@ def CatchFace(frame):
                 cv2.rectangle(frame, (rec_xl, rec_yl), (rec_xr, rec_yr), no_color, 1)
                 cv2.rectangle(frame, (rec_xl, rec_yl), (rec_xr, rec_yl + 15), no_color, -1)
             else:
-
                 cv2.rectangle(frame, (rec_xl, rec_yl), (rec_xr, rec_yr), color, 1)
                 cv2.rectangle(frame, (rec_xl, rec_yl), (rec_xr, rec_yl + 15), color, -1)
 
@@ -204,6 +206,7 @@ def test_by_image_set():
     test_dataloader = Data.DataLoader(test_dataset, batch_size=batch_size, shuffle=True)
 
     all_correct_num = 0
+    cur_correct_num = 0
 
     for ii, (img, label) in enumerate(tqdm(test_dataloader)):
         img = Variable(img)
@@ -214,6 +217,11 @@ def test_by_image_set():
 
         correct_num = sum(predict == label.data.item())
         all_correct_num += correct_num.data.item()
+        cur_correct_num += sum(predict == label.data.item())
+        if ii % 50 == 49:
+            writer.add_scalar('acc', cur_correct_num * 1.0 / 50, global_step=(ii + 1) / 50)  # 每50个样本计算一次精度
+            cur_correct_num = 0
+
     Accuracy = all_correct_num * 1.0 / (len(test_dataset))  # 计算正确率
     print('all_correct_num={0},Accuracy={1}'.format(all_correct_num, Accuracy))
 
@@ -235,7 +243,4 @@ if __name__ == "__main__":
     parser.add_argument('--filepath', '-f', type=str, help='filepath 图片路径, 当mode为image时必要')
     args = parser.parse_args()
     main(args)
-    # CatchPICFromVideo("Get Face", 0)
-    # run_on_img('./CelebA/Img/img_align_celeba/202591.jpg')
-    # test_by_image()
 

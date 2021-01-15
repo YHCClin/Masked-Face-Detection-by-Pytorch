@@ -14,9 +14,14 @@
 * pytorch `1.4.0`
 * tqdm `4.36.1`
 * tensorboardX `2.1`
-
 * Pillow `7.0.0`
 * opencv `3.4.2`
+
+Or you can execute the following commands to install all libs
+
+```bash
+pip install -r requirements.txt
+```
 
 
 

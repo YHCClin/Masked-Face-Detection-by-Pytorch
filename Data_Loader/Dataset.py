@@ -53,8 +53,6 @@ class myDataset(Data.DataLoader):
 
 transform = transforms.Compose([
     transforms.Resize(300),  # 图像缩小
-    # transforms.CenterCrop(128),  # 中心剪裁
-    # transforms.RandomHorizontalFlip(),  # 依概率p水平翻转
     transforms.ToTensor(),  # 转tensor 并归一化
     transforms.Normalize(mean=[0.5, 0.5, 0.5],  # 标准化
                          std=[0.5, 0.5, 0.5])
