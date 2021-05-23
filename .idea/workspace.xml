@@ -4,16 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/test_model.py" line="106" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="86a3ca22-d093-4e08-92c3-0fd515e776ab" name="默认" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/runs/train/events.out.tfevents.1610513373.LAPTOP-1SB28DEC" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/mask_detection.pkl" afterPath="$PROJECT_DIR$/models/mask_detection.pkl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/实验部分.md" afterPath="$PROJECT_DIR$/实验部分.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data_Loader/Dataset.py" afterPath="$PROJECT_DIR$/Data_Loader/Dataset.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_model.py" afterPath="$PROJECT_DIR$/test_model.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/train_model.py" afterPath="$PROJECT_DIR$/train_model.py" />
-    </list>
+    <list default="true" id="86a3ca22-d093-4e08-92c3-0fd515e776ab" name="默认" comment="" />
     <ignored path="$PROJECT_DIR$/CelebA/Anno/" />
     <ignored path="$PROJECT_DIR$/CelebA/Img/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -36,8 +27,8 @@
       <file leaf-file-name="test_model.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test_model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+            <state relative-caret-position="170">
+              <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -48,7 +39,7 @@
       <file leaf-file-name="Dataset.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Data_Loader/Dataset.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
+            <state relative-caret-position="867">
               <caret line="58" column="2" lean-forward="false" selection-start-line="58" selection-start-column="2" selection-end-line="58" selection-end-column="2" />
               <folding>
                 <element signature="e#0#43#0" expanded="true" />
@@ -60,8 +51,8 @@
       <file leaf-file-name="train_model.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/train_model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1241">
-              <caret line="73" column="0" lean-forward="true" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+            <state relative-caret-position="342">
+              <caret line="53" column="40" lean-forward="true" selection-start-line="53" selection-start-column="40" selection-end-line="53" selection-end-column="40" />
               <folding>
                 <element signature="e#24#36#0" expanded="true" />
               </folding>
@@ -82,7 +73,7 @@
       <file leaf-file-name="net_model.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Net/net_model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
+            <state relative-caret-position="1088">
               <caret line="65" column="57" lean-forward="false" selection-start-line="65" selection-start-column="57" selection-end-line="65" selection-end-column="57" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
@@ -154,8 +145,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -212,6 +201,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="ProjectViewState">
@@ -221,7 +212,7 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../NLPPractice" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
@@ -515,7 +506,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-8" width="1936" height="1096" extended-state="7" />
+    <frame x="1912" y="-8" width="1936" height="1096" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2484375" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
@@ -819,7 +810,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Net/net_model.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
+        <state relative-caret-position="1088">
           <caret line="65" column="57" lean-forward="false" selection-start-line="65" selection-start-column="57" selection-end-line="65" selection-end-column="57" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
@@ -829,7 +820,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Data_Loader/Dataset.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
+        <state relative-caret-position="867">
           <caret line="58" column="2" lean-forward="false" selection-start-line="58" selection-start-column="2" selection-end-line="58" selection-end-column="2" />
           <folding>
             <element signature="e#0#43#0" expanded="true" />
@@ -839,8 +830,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test_model.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+        <state relative-caret-position="170">
+          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
@@ -849,8 +840,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/train_model.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1241">
-          <caret line="73" column="0" lean-forward="true" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+        <state relative-caret-position="342">
+          <caret line="53" column="40" lean-forward="true" selection-start-line="53" selection-start-column="40" selection-end-line="53" selection-end-column="40" />
           <folding>
             <element signature="e#24#36#0" expanded="true" />
           </folding>
